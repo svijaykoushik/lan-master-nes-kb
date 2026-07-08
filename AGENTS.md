@@ -27,7 +27,7 @@ The knowledge base shall:
 - Preserve implementation details while explaining concepts in a manner transferable to modern software and game development.
 - Clearly distinguish verified facts, deductions, hypotheses, and unknowns.
 - Strictly follow the **[Open Knowledge Format (OKF) v0.1 specification](OKF_SPEC)**.
-- Store all documentation under the `knowledge_base/` directory.
+- Store all documentation under the `docs/` directory.
 
 ---
 
@@ -92,12 +92,12 @@ Instruction-level Analysis
 # Ingestion Workflow
 
 1. Analyze the project structure.
-2. Create or update the [project_map](knowledge_base/project_map).
+2. Create or update the [project_map](docs/project_map).
 3. Build sufficient understanding before documenting any concept.
 4. Identify relationships between systems, modules, files, data, memory, and execution flow.
 5. Create or update concept folders according to the OKF specification.
 6. Create or update concept documents.
-7. Update the [project_map](knowledge_base/project_map) with visited files, discovered concepts, and documentation status.
+7. Update the [project_map](docs/project_map) with visited files, discovered concepts, and documentation status.
 8. Update the knowledge base index.
 9. Append an entry to the project log (newest entry first) containing:
     - Date
@@ -175,7 +175,7 @@ Before completing any documentation update, verify that:
 
 When the user asks a question:
 
-1. Read the [knowledge base index](knowledge_base/index) to locate relevant pages.
+1. Read the [knowledge base index](docs/index) to locate relevant pages.
 2. Read the relevant pages and synthesize an answer.
 3. Cite the specific knowledge base pages used.
 4. If the answer is not present in the knowledge base:

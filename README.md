@@ -22,10 +22,10 @@ To accomplish this massive technical mapping and translation effort, the wiki wa
 
 ## 📖 The Knowledge Base (KB)
 
-The heart of this repository is the `knowledge_base/` directory, which follows the **Open Knowledge Format (OKF) v0.1**.
+The heart of this repository is the `docs/` directory, which follows the **Open Knowledge Format (OKF) v0.1**.
 
 ### Navigation
-The best way to explore the project is by starting at the **[Knowledge Base Index](knowledge_base/index.md)**. From there, you can dive into:
+The best way to explore the project is by starting at the **[Knowledge Base Index](docs/index.md)**. From there, you can dive into:
 
 - **Core Architecture**: High-level execution flow, the NMI-driven game loop, and the project mapping.
 - **System Components**:
@@ -53,7 +53,7 @@ All documentation is structured using OKF, which ensures:
 
 ## 📂 Repository Structure
 
-- `knowledge_base/`: The reconstructed documentation (OKF format).
+- `docs/`: The reconstructed documentation (OKF format).
 - `sources/`: Original 6502 Assembly source code and raw assets.
 - `OKF_SPEC.md`: The formal specification for the knowledge base format.
 - `AGENTS.md`: Guidelines for AI agents performing reconstruction tasks.

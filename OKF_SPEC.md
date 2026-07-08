@@ -5,7 +5,7 @@ This document defines the strict application of the **Open Knowledge Format (OKF
 ## 2. Bundle Structure & Organization
 - **Data Organization**: Concepts MUST be grouped into one or more directories based on relevancy (e.g., `/audio`, `/graphics`, `/logic`).
 - **Reserved Filenames**:
-    - `index.md`: MUST appear in every directory under `knowledge_base/` to enumerate contents and support progressive disclosure.
+    - `index.md`: MUST appear in every directory under `docs/` to enumerate contents and support progressive disclosure.
     - `log.md`: MAY appear at any level to record the history of changes as a flat list of date-grouped entries (newest first).
 
 ## 3. Concept Types
