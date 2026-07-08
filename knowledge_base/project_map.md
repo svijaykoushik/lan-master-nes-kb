@@ -31,7 +31,7 @@ timestamp: 2026-06-29T11:05:00Z
 - [RLE Decompressor](/sources/Source/rle.asm) - Logic to expand compressed assets.
 
 ## Build Pipeline
-- [Compilation Script](/sources/Source/compile.bat) - Windows batch script for assembling the 6502 code. See [Build System](/knowledge_base/system/build_system.md).
+- [Compilation Script](/sources/Source/compile.bat) - Windows batch script for assembling the 6502 code. See [Build System](knowledge_base/system/build_system.md).
 
 # Citations
 [1] [Source Directory Listing](/sources/Source/)
