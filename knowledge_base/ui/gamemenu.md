@@ -1,6 +1,6 @@
 ---
 type: Assembly Module
-title: In-Game Pause Menu
+title: Gamemenu
 description: A contextual menu allowing players to resume the game, restart the level, or exit.
 resource: sources/Source/gamemenu.asm
 tags: [ui, menu, interaction]
@@ -27,5 +27,5 @@ The `gameMenu` is a modal interface triggered during gameplay (via the Start but
 - **Exit**: `gameMenuDone` $\rightarrow$ Restore Screen from `GAME_MENU_BUF` $\rightarrow$ Branch to Resume/Restart/Exit.
 
 # Citations
-[1] [Source Code: gamemenu.asm](/sources/Source/gamemenu.asm)
-[2] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: gamemenu.asm](../../sources/Source/gamemenu.asm)
+[2] [Source Code: game.asm](../../sources/Source/game.asm)

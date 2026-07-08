@@ -5,7 +5,7 @@ This document defines the strict application of the **Open Knowledge Format (OKF
 ## 2. Bundle Structure & Organization
 - **Data Organization**: Concepts MUST be grouped into one or more directories based on relevancy (e.g., `/audio`, `/graphics`, `/logic`).
 - **Reserved Filenames**:
-    - `index.md`: MAY appear in any directory to enumerate contents and support progressive disclosure.
+    - `index.md`: MUST appear in every directory under `knowledge_base/` to enumerate contents and support progressive disclosure.
     - `log.md`: MAY appear at any level to record the history of changes as a flat list of date-grouped entries (newest first).
 
 ## 3. Concept Types
@@ -32,6 +32,7 @@ To ensure consistency, agents MUST use the following `type` values for frontmatt
 - Use `# Implementation` instead of `# Schema` for assembly modules to describe the logic.
 - Use `# Asset Details` for `Game Asset` types to describe formats (e.g., "RLE compressed graphics").
 - All links to other concepts MUST use the absolute format: `[Title](/path/to/concept.md)`.
+- Cross-linking is mandatory: Every time a concept defined in the knowledge base is mentioned, it MUST be linked to its corresponding document.
 - Use `# Citations` to link back to the original source file or the `manual.md`.
 
 ## 5. Example Concept: game.asm

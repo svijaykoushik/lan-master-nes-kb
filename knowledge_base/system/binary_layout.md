@@ -1,6 +1,6 @@
 ---
 type: Reference
-title: Binary Layout (ROM Structure)
+title: Binary Layout
 description: Technical mapping of the Lan Master ROM binary, including iNES header and memory bank organization.
 resource: sources/Source/game.asm
 tags: [system, binary, rom, hardware]
@@ -28,7 +28,7 @@ The project uses a multi-bank structure to organize code, audio, and assets.
 - **Address**: `$8000 - $BFFF` (when mirrored).
 - **Contents**: 
     - Hardware initialization and the main game loop.
-    - Core system modules (Input, Rendering, Memory Management).
+    - Core system modules (Input, [Rendering](rendering.md), Memory Management).
     - The `nmiHandlersList` and the dynamic NMI dispatcher.
     - Included modules: `mainmenu.asm`, `gamemenu.asm`, `tracemap.asm`, `rle.asm`, `palette.asm`, `controller.asm`, `famitone.asm`.
     - **Interrupt Vectors**: Located at `$FFFA - $FFFF`, containing the pointers for `NMI_CALL` and `reset`.
@@ -60,4 +60,4 @@ The project uses a multi-bank structure to organize code, audio, and assets.
     - `patterns.chr`: The raw 8x8 pixel tile data used by the PPU.
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: game.asm](../../sources/Source/game.asm)

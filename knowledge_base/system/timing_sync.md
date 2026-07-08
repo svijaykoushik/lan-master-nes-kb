@@ -1,13 +1,14 @@
 ---
 type: Assembly Module
-title: Timing & Synchronization
+title: "Timing & Sync"
 description: Low-level routines for synchronizing game logic and rendering with the NES NMI and VBlank.
 resource: sources/Source/game.asm
 tags: [system, timing, sync, hardware]
 timestamp: 2026-07-03T11:00:00Z
 ---
 
-# Timing & Synchronization
+# Implementation
+# [Timing & Synchronization](timing_sync.md)
 
 Lan Master relies on strict synchronization with the NES hardware to ensure smooth rendering and consistent game speed. This is achieved through a set of "wait" routines that synchronize execution with the Non-Maskable Interrupt (NMI).
 
@@ -49,4 +50,4 @@ To maintain a consistent game speed across different NES regions (NTSC vs PAL), 
     - This effectively skips every 6th frame in NTSC mode to match the timing of PAL hardware or a specific target speed.
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: game.asm](../../sources/Source/game.asm)

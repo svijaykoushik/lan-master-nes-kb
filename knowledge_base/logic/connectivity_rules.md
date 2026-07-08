@@ -1,6 +1,6 @@
 ---
 type: Reference
-title: Connectivity Rules (pinsTable)
+title: Connectivity Rules
 description: Formalization of the wiring rules used to determine connectivity between tiles.
 resource: sources/Source/tracemap.asm
 tags: [logic, reference, networking]
@@ -48,4 +48,4 @@ Based on the `pinsTable` data, here are common tile behaviors:
 | 8 | Right-Down | `T_RIGHT \| T_DOWN` | Connects Right $\leftrightarrow$ Down |
 
 # Citations
-[1] [Source Code: tracemap.asm](/sources/Source/tracemap.asm)
+[1] [Source Code: tracemap.asm](../../sources/Source/tracemap.asm)

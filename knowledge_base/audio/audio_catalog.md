@@ -7,7 +7,7 @@ tags: [audio, sfx, bgm, catalog]
 timestamp: 2026-07-03T10:45:00Z
 ---
 
-# Audio Catalog
+# [Audio Catalog](audio_catalog.md)
 
 This document provides a mapping between the internal audio indices used by the game logic and the specific audio assets defined in the source code.
 
@@ -43,9 +43,9 @@ BGM is managed as modules, each consisting of channel data, envelopes, and instr
 | 4 | `bgm_timeout_module` | `BGM_TIMEOUT` | Timeout/Failure theme. |
 
 # Citations
-[1] [Source Code: sfx.asm](/sources/Source/sfx.asm)
-[2] [Source Code: game.asm](/sources/Source/game.asm)
-[3] [Source Code: bgm_title.asm](/sources/Source/bgm_title.asm)
-[4] [Source Code: bgm_game.asm](/sources/Source/bgm_game.asm)
-[5] [Source Code: bgm_done.asm](/sources/Source/bgm_done.asm)
-[6] [Source Code: bgm_timeout.asm](/sources/Source/bgm_timeout.asm)
+[1] [Source Code: sfx.asm](../../sources/Source/sfx.asm)
+[2] [Source Code: game.asm](../../sources/Source/game.asm)
+[3] [Source Code: bgm_title.asm](../../sources/Source/bgm_title.asm)
+[4] [Source Code: bgm_game.asm](../../sources/Source/bgm_game.asm)
+[5] [Source Code: bgm_done.asm](../../sources/Source/bgm_done.asm)
+[6] [Source Code: bgm_timeout.asm](../../sources/Source/bgm_timeout.asm)

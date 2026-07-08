@@ -1,13 +1,13 @@
 ---
 type: Reference
-title: Pattern Mapping (tilesTable)
+title: Pattern Mapping
 description: Mapping of internal logical tile IDs to PPU character pattern indices in patterns.chr.
 resource: sources/Source/game.asm
 tags: [assets, graphics, ppu, mapping]
 timestamp: 2026-07-03T10:30:00Z
 ---
 
-# Pattern Mapping Overview
+# [Pattern Mapping](pattern_mapping.md) Overview
 
 Lan Master uses a layer of indirection between the logical map (`GAME_MAP`) and the physical PPU character patterns stored in `patterns.chr`. This is managed via the `tilesTable` in `game.asm`.
 
@@ -52,4 +52,4 @@ Based on the `tilesTable` definitions in `game.asm`, the following mapping is es
 *Note: IDs 9-14 follow a similar pattern for expanded wiring variants.*
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: game.asm](../../sources/Source/game.asm)

@@ -1,6 +1,6 @@
 ---
 type: Assembly Module
-title: Input System (controller)
+title: Input System
 description: Logic for polling the NES gamepad and detecting button presses.
 resource: sources/Source/controller.asm
 tags: [system, input, hardware]
@@ -24,4 +24,4 @@ The following constants are used to mask the input state:
 - `PAD_UP`, `PAD_DOWN`, `PAD_LEFT`, `PAD_RIGHT`
 
 # Citations
-[1] [Source Code: controller.asm](/sources/Source/controller.asm)
+[1] [Source Code: controller.asm](../../sources/Source/controller.asm)

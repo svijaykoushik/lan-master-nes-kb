@@ -1,6 +1,6 @@
 ---
 type: Assembly Module
-title: Random Number Generation (rand)
+title: RNG Subsystem
 description: Implementation of a Galois Linear Feedback Shift Register (LFSR) for pseudo-random number generation.
 resource: sources/Source/game.asm
 tags: [system, logic, math, rng]
@@ -38,4 +38,4 @@ The RNG is used in several critical areas:
 - **Menu Animation**: The `mainMenuAnim` routine uses the RNG to toggle the display settings for visual dynamism.
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: game.asm](../../sources/Source/game.asm)

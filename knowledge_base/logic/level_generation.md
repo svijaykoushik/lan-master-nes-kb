@@ -1,13 +1,14 @@
 ---
 type: Assembly Module
-title: Level Generation & Unpacking
+title: Level Generation
 description: Logic for expanding level data from ROM into RAM, including randomization and terminal initialization.
 resource: sources/Source/game.asm, sources/Source/levels.asm
 tags: [logic, generation, randomization]
 timestamp: 2026-06-29T13:00:00Z
 ---
 
-# Level Generation Process
+# Implementation
+# [Level Generation](level_generation.md) Process
 
 The process of transforming compressed level data from `levels.asm` into the playable `GAME_MAP` occurs in two primary stages: **Unpacking** and **Visualization**.
 
@@ -44,9 +45,9 @@ Once the `GAME_MAP` is finalized in RAM, `showLevel` handles the "unfolding" ani
 Instead of a static load, the game uses a buffer `GAME_MAP_BUF` to perform a flood-fill-like animation:
 1. **Seed**: It starts with the tile at `GAME_START_POS`.
 2. **Expansion**: It iteratively marks neighboring tiles (Left, Right, Up, Down) as "next to visit".
-3. **Rendering**: Tiles are rendered to the PPU in waves, alternating between storing coordinates and updating the screen.
+3. **[Rendering](../system/rendering.md)**: Tiles are rendered to the PPU in waves, alternating between storing coordinates and updating the screen.
 4. **Iteration**: This continues until all reachable tiles in the map have been drawn.
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
-[2] [Source Code: levels.asm](/sources/Source/levels.asm)
+[1] [Source Code: game.asm](../../sources/Source/game.asm)
+[2] [Source Code: levels.asm](../../sources/Source/levels.asm)

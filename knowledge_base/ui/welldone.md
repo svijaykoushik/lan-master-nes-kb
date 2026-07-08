@@ -1,6 +1,6 @@
 ---
 type: Assembly Module
-title: Game Completion Screen (wellDone)
+title: Welldone
 description: Logic for the final win screen, including animated text and background effects.
 resource: sources/Source/welldone.asm
 tags: [ui, completion, animation]
@@ -10,7 +10,7 @@ timestamp: 2026-06-29T12:40:00Z
 # Implementation
 The `wellDone` module handles the end-game sequence when the player completes all 50 levels. It is characterized by high-effort visual effects and a dedicated NMI handler.
 
-## Rendering Pipeline
+## [Rendering](../system/rendering.md) Pipeline
 1. **Static Background**: Loads the `wellDoneTable` (via RLE) into the nametables.
 2. **Text Animation**: 
    - Uses `wellDoneText` as a source.
@@ -26,5 +26,5 @@ The `wellDone` module handles the end-game sequence when the player completes al
     - **PPU Sync**: Uses `bit PPU_STATUS` to synchronize visual changes with the screen's vertical blank and sprite-0 hit.
 
 # Citations
-[1] [Source Code: welldone.asm](/sources/Source/welldone.asm)
-[2] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: welldone.asm](../../sources/Source/welldone.asm)
+[2] [Source Code: game.asm](../../sources/Source/game.asm)

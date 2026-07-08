@@ -1,6 +1,6 @@
 ---
 type: Assembly Module
-title: Connectivity Engine (traceMap)
+title: Connectivity Engine
 description: Logic for verifying network connectivity and win conditions.
 resource: sources/Source/tracemap.asm
 tags: [logic, graph-traversal, win-condition]
@@ -26,4 +26,4 @@ The `pinsTable` defines the connectivity of each tile type. Pins are represented
 - Some tiles have "secondary" pins (shifted by 4 bits), which may represent internal connectivity or special terminal properties.
 
 # Citations
-[1] [Source Code: tracemap.asm](/sources/Source/tracemap.asm)
+[1] [Source Code: tracemap.asm](../../sources/Source/tracemap.asm)

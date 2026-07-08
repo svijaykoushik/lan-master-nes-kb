@@ -1,6 +1,6 @@
 ---
 type: Build System
-title: Build System (compile.bat)
+title: Build System
 description: Documentation of the assembly and compilation process for Lan Master NES.
 resource: sources/Source/compile.bat
 tags: [system, build, 6502]
@@ -31,4 +31,4 @@ The build process is automated via `compile.bat` with the following execution fl
 The `game.asm` file serves as the root of the project. It defines the memory map, includes all necessary source modules, and contains the reset vector that the NES hardware calls upon power-on.
 
 # Citations
-[1] [Source Code: compile.bat](/sources/Source/compile.bat)
+[1] [Source Code: compile.bat](../../sources/Source/compile.bat)

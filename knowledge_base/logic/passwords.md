@@ -1,13 +1,14 @@
 ---
 type: Assembly Module
-title: Password Verification System
+title: Password System
 description: Logic for entering and verifying 4-digit passcodes to unlock specific game levels.
 resource: sources/Source/mainmenu.asm
 tags: [logic, security, input]
 timestamp: 2026-07-03T11:30:00Z
 ---
 
-# Password System
+# Implementation
+# [Password System](passwords.md)
 
 Lan Master features a password system that allows players to bypass early levels and jump directly to a specific level in the 50-level sequence.
 
@@ -39,5 +40,5 @@ The password system includes a hidden diagnostic mode. If a specific code is ent
 - **Function**: This mode allows the user to trigger and test various sound effects from the `sfx.asm` library by entering specific numerical sequences.
 
 # Citations
-[1] [Source Code: mainmenu.asm](/sources/Source/mainmenu.asm)
-[2] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: mainmenu.asm](../../sources/Source/mainmenu.asm)
+[2] [Source Code: game.asm](../../sources/Source/game.asm)

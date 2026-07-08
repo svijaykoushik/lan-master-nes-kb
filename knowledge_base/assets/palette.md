@@ -1,17 +1,18 @@
 ---
 type: Assembly Module
-title: Palette System (palette)
+title: Palette
 description: Logic for managing NES color palettes and implementing fade effects.
 resource: sources/Source/palette.asm
 tags: [assets, graphics, hardware]
 timestamp: 2026-06-29T12:50:00Z
 ---
 
-# Palette Management
+# Implementation
+# [Palette](palette.md) Management
 
 The palette system handles the colors used by the PPU, providing routines to reset palettes and create smooth transitions via fade-in and fade-out effects.
 
-## Palette Reset (`palReset`)
+## [Palette](palette.md) Reset (`palReset`)
 The `palReset` routine clears the current PPU palette by writing the default color `$0f` to the palette registers.
 
 ## Fade Effects
@@ -29,7 +30,7 @@ The game uses a technique to fade colors by interpolating between a base palette
 - **Mechanism**: Gradually transitions the colors from the current palette back to a dark state.
 - **Implementation**: Similar to `palFadeIn`, but traverses the `palBrightTable` in the opposite direction (decreasing brightness) before finally calling `palReset`.
 
-## Palette Definitions
+## [Palette](palette.md) Definitions
 
 The file defines three primary palettes:
 - `palTitle`: Used for the main menu screen.
@@ -37,4 +38,4 @@ The file defines three primary palettes:
 - `palDone`: Used for the victory screen.
 
 # Citations
-[1] [Source Code: palette.asm](/sources/Source/palette.asm)
+[1] [Source Code: palette.asm](../../sources/Source/palette.asm)

@@ -6,7 +6,7 @@ tags: [memory, hardware, 6502]
 timestamp: 2026-06-29T12:00:00Z
 ---
 
-# Memory Map
+# [Memory Map](memory_map.md)
 
 Lan Master utilizes several regions of the NES's 2KB internal RAM.
 
@@ -15,7 +15,7 @@ Lan Master utilizes several regions of the NES's 2KB internal RAM.
 The Zero Page is used for high-speed access to global game state and temporary variables.
 
 ### 1. Hardware and Timing (Lower Zero Page)
-- `$00 - $04`: Palettes and temporary storage (`TEMP`, `PAL_LOW`, `PAL_HIGH`, etc.).
+- `$00 - $04`: [Palette](../assets/palette.md)s and temporary storage (`TEMP`, `PAL_LOW`, `PAL_HIGH`, etc.).
 - `$FF`: `FRAME_CNT` - Global frame counter.
 - `$FE`: `FRAME_CNT2` - Second frame counter (used for NTSC timing).
 - `$FD`: `RAND_SEED` - Seed for the Galois random number generator.
@@ -98,5 +98,5 @@ The `traceMap` routine uses this page to implement its BFS queues.
 Buffer for sprite attributes (4 bytes per sprite).
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
-[2] [Source Code: tracemap.asm](/sources/Source/tracemap.asm)
+[1] [Source Code: game.asm](../../sources/Source/game.asm)
+[2] [Source Code: tracemap.asm](../../sources/Source/tracemap.asm)

@@ -1,13 +1,13 @@
 ---
 type: Game Mechanic
-title: Tile Rotation Mechanic
+title: Rotation Mechanics
 description: Logic for rotating network elements to establish connectivity.
 resource: sources/Source/game.asm
 tags: [logic, mechanics, interaction]
 timestamp: 2026-06-29T13:30:00Z
 ---
 
-# Rotation Mechanics
+# [Rotation Mechanics](rotation.md)
 
 The core gameplay of Lan Master involves rotating tiles to connect terminals.
 
@@ -39,4 +39,4 @@ The game introduces a "network degradation" mechanic where tiles rotate randomly
 4. **Feedback**: The `SFX_ROTATE3` or `SFX_ROTATE4` sound effect is played.
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: game.asm](../../sources/Source/game.asm)

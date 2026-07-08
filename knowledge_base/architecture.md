@@ -1,8 +1,11 @@
 ---
 type: Game Mechanic
-title: Full Game Architecture
+title: Architecture
 description: Detailed mapping of the game's execution flow, state machine, and system components.
-tags: [architecture, core, 6502]
+tags:
+  - architecture
+  - core
+  - 6502
 timestamp: 2026-06-29T11:15:00Z
 ---
 
@@ -49,10 +52,10 @@ stateDiagram-v2
     5. **Input**: Polls gamepad via `padPoll` to move cursor or trigger rotations.
     6. **Connectivity**: Periodic calls to `traceMap` (every 25 frames) to check for the win condition.
 
-## 2. Connectivity Engine (`tracemap.asm`)
+## 2. [Connectivity Engine](logic/tracemap.md) (`tracemap.asm`)
 Implements a BFS to verify that all terminals defined in `GAME_TERM_LIST` are connected. It uses `pinsTable` to validate that connections are bidirectional (e.g., a tile with a `T_LEFT` pin must connect to a neighbor with a `T_RIGHT` pin).
 
-## 3. Memory Map
+## 3. [Memory Map](system/memory_map.md)
 - **Zero Page**: Stores global state, timers, and the `NMI_CALL` vector.
 - **`GAME_MAP` ($0300)**: 16x16 grid of tile types.
 - **`GAME_CHECK` ($0400)**: Traversal flags for `traceMap`.
@@ -64,5 +67,5 @@ Implements a BFS to verify that all terminals defined in `GAME_TERM_LIST` are co
 - **Audio**: Managed by `famitone.asm`, handling both BGM and SFX using DPCM samples.
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
-[2] [Instruction Manual](/sources/manual.md)
+[1] [Source Code: game.asm](../sources/Source/game.asm)
+[2] [Instruction Manual](../sources/manual.md)

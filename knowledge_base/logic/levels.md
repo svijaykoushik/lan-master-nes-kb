@@ -1,12 +1,13 @@
 ---
 type: Assembly Module
-title: Level Definitions (levels)
+title: Level Definitions
 description: Data definitions for the 50 game levels, including map layouts, timing, and terminal locations.
 resource: sources/Source/levels.asm
 tags: [logic, data, levels]
 timestamp: 2026-06-29T12:10:00Z
 ---
 
+# Implementation
 # Level Structure
 
 The `levels.asm` file contains the data for all 50 levels. The levels are indexed in the `levList` table, which is a table of pointers (`.dw`) to the start of each level's data block (`.level1` through `.level50`). This allows the game to jump directly to the required data based on the `GAME_LEVEL` variable.
@@ -24,7 +25,7 @@ Each level is defined by a block of data with the following structure:
 4. **Time Limit**: A byte (`.db`) defining the time allowed to complete the level (some versions store this as two words for precision).
 5. **Unknown/Reserved**: A trailing byte (usually `$66` or `$67`).
 
-## Level Generation Process
+## [Level Generation](level_generation.md) Process
 
 When a level is loaded (`unpackLevel` in `game.asm`):
 
@@ -34,5 +35,5 @@ When a level is loaded (`unpackLevel` in `game.asm`):
 4. **Connectivity Ensuring**: The `unpackLevel` routine includes a "disconnect" phase. It ensures that terminals are not immediately connected by rotating them if necessary until a disconnected state is achieved.
 
 # Citations
-[1] [Source Code: levels.asm](/sources/Source/levels.asm)
-[2] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: levels.asm](../../sources/Source/levels.asm)
+[2] [Source Code: game.asm](../../sources/Source/game.asm)

@@ -1,6 +1,6 @@
 ---
 type: Assembly Module
-title: Main Menu System
+title: Mainmenu
 description: The primary user interface for game start, passcode entry, and audio options.
 resource: sources/Source/mainmenu.asm
 tags: [ui, menu, interaction]
@@ -24,11 +24,11 @@ The menu provides a specialized interface for entering 4-digit codes to unlock l
 - **Validation Logic**: The code is split into 4-bit nibbles and compared against the `passwords` array. If a match is found, `GAME_LEVEL` is updated to the corresponding level index.
 - **Special Codes**: There is a hidden "SFX Test" mode triggered by specific codes (e.g., code starting with 6, 8).
 
-## Rendering & Animation
+## [Rendering](../system/rendering.md) & Animation
 - **Background**: Uses `titleNameTable` loaded via `unrle`.
 - **Cursor**: A simple cursor is rendered using `mainMenuShowCur` and `mainMenuShowCurAttr`.
 - **Animation**: `mainMenuAnim` creates visual dynamism by toggling the `PPU_CTRL` mirror/scroll settings or reacting to the Noise channel of the audio engine.
 
 # Citations
-[1] [Source Code: mainmenu.asm](/sources/Source/mainmenu.asm)
-[2] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: mainmenu.asm](../../sources/Source/mainmenu.asm)
+[2] [Source Code: game.asm](../../sources/Source/game.asm)

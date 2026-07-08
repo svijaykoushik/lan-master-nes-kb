@@ -1,13 +1,14 @@
 ---
 type: Assembly Module
-title: Sprite & OAM Management
+title: OAM Management
 description: Logic for managing the NES Object Attribute Memory (OAM) and rendering the game cursor.
 resource: sources/Source/game.asm
 tags: [system, rendering, oam, sprites]
 timestamp: 2026-07-03T11:30:00Z
 ---
 
-# OAM Management
+# Implementation
+# [OAM Management](oam_management.md)
 
 Lan Master uses the NES's sprite system to render the game cursor. The game maintains a local copy of the sprite attributes in RAM before transferring them to the PPU's OAM (Object Attribute Memory).
 
@@ -43,4 +44,4 @@ This routine updates the `OAM_PAGE` buffer with the current cursor coordinates (
 - **Coordinate Mapping**: It translates the game's internal coordinate system to the PPU's sprite coordinates.
 
 # Citations
-[1] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: game.asm](../../sources/Source/game.asm)

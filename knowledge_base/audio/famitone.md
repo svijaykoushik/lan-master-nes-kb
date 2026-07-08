@@ -1,17 +1,19 @@
 ---
 type: Assembly Module
-title: Audio System (FamiTone)
+title: FamiTone Engine
 description: Implementation of the FamiTone audio library used for BGM and SFX.
 resource: sources/Source/famitone.asm, sources/Source/sfx.asm
 tags: [audio, hardware, apu]
 timestamp: 2026-06-29T12:30:00Z
 ---
 
+
+# Implementation
 # System Overview
 
 Lan Master uses the **FamiTone** audio library, a custom implementation for the NES APU (Audio Processing Unit). It supports both sequenced background music (BGM) and triggered sound effects (SFX), as well as DPCM samples.
 
-## Architecture
+## [Architecture](/architecture.md)
 
 FamiTone manages the five NES audio channels:
 - **Pulse 1 & 2**: Used for melodies and harmonies.
@@ -45,5 +47,5 @@ The library writes directly to the NES APU registers:
 - `$4015`: Channel enable register.
 
 # Citations
-[1] [Source Code: famitone.asm](/sources/Source/famitone.asm)
-[2] [Source Code: sfx.asm](/sources/Source/sfx.asm)
+[1] [Source Code: famitone.asm](../../sources/Source/famitone.asm)
+[2] [Source Code: sfx.asm](../../sources/Source/sfx.asm)

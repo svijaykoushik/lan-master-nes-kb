@@ -1,12 +1,13 @@
 ---
 type: Assembly Module
-title: Asset Pipeline (RLE Decompression)
+title: Rle
 description: Analysis of the RLE decompression logic used for background graphics.
 resource: sources/Source/rle.asm
 tags: [assets, graphics, compression]
 timestamp: 2026-06-29T12:40:00Z
 ---
 
+# Implementation
 # RLE Decompression
 
 Lan Master uses a custom Run-Length Encoding (RLE) scheme to compress large graphical assets (like `title.rle`, `gamebg.rle`, and `welldone.rle`) and decompress them directly into the PPU VRAM during screen transitions.
@@ -34,5 +35,5 @@ The decompression is used in several key areas:
 - **Win Screen**: `welldone.asm` calls `unrle` to load the "Well Done" screen assets.
 
 # Citations
-[1] [Source Code: rle.asm](/sources/Source/rle.asm)
-[2] [Source Code: game.asm](/sources/Source/game.asm)
+[1] [Source Code: rle.asm](../../sources/Source/rle.asm)
+[2] [Source Code: game.asm](../../sources/Source/game.asm)

@@ -1,13 +1,14 @@
 ---
-type: Software Tool
-title: Level Editor (lanme)
+type: Game Mechanic
+title: Level Editor
 description: Analysis of the C++ based level editor used to create and export levels for Lan Master.
 resource: sources/Source/lanme/src/Unit1.cpp
 tags: [tooling, level-editor, cpp, export]
 timestamp: 2026-06-29T14:00:00Z
 ---
 
-# Level Editor Overview
+
+# [Level Editor](level_editor.md) Overview
 
 The `lanme` tool is a Windows VCL application used by the developer to design the 50 levels of Lan Master. It allows for visual map editing, connectivity testing, and exporting the data into both binary (`levels.bin`) and assembly (`levels.asm`) formats.
 
@@ -22,7 +23,7 @@ The `lanme` tool is a Windows VCL application used by the developer to design th
 The tool converts the visual grid into the highly compressed format found in `levels.asm`.
 
 ### 1. Tile Compression
-Instead of storing each tile as a full byte, the editor uses a `tilePaletteReverse` table to map tiles to 3-bit identifiers. 
+Instead of storing each tile as a full byte, the editor uses a `tile[Palette](../assets/palette.md)Reverse` table to map tiles to 3-bit identifiers. 
 - 8 tiles are packed into 3 bytes ( $8 \times 3 = 24$ bits).
 - This is why the `levels.asm` file contains sequences of three `.db` bytes for every 8 tiles.
 
@@ -40,4 +41,4 @@ The `CheckMap` function in `Unit1.cpp` is the functional equivalent of the `trac
 - A `checked` map to track visited tiles.
 
 # Citations
-[1] [Source Code: Unit1.cpp](/sources/Source/lanme/src/Unit1.cpp)
+[1] [Source Code: Unit1.cpp](../../sources/Source/lanme/src/Unit1.cpp)
