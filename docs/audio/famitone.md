@@ -13,7 +13,7 @@ timestamp: 2026-06-29T12:30:00Z
 
 Lan Master uses the **FamiTone** audio library, a custom implementation for the NES APU (Audio Processing Unit). It supports both sequenced background music (BGM) and triggered sound effects (SFX), as well as DPCM samples.
 
-## [Architecture](/architecture.md)
+## [Architecture](../architecture.md)
 
 FamiTone manages the five NES audio channels:
 - **Pulse 1 & 2**: Used for melodies and harmonies.

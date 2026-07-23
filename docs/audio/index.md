@@ -1,5 +1,12 @@
-# Assembly Modules
-* [FamiTone Engine](famitone.md) - Implementation of the FamiTone audio library used for BGM and SFX.
+# Audio Subsystem
 
-# References
-* [Audio Catalog](audio_catalog.md) - Mapping of sound effect indices and BGM modules to their game functions.
+The **Audio Subsystem** manages music playback and sound effects during gameplay, menus, timeouts, and victory screens. It uses a customized version of the **FamiTone** audio engine, supporting standard NES APU pulse/triangle/noise channels as well as DPCM sampled percussion effects.
+
+---
+
+## Assembly Modules
+* [FamiTone Engine](famitone.md) - Implementation of the FamiTone audio driver used for BGM playback and sound effect dispatching.
+
+## Catalogs & References
+* [Audio Catalog](audio_catalog.md) - Catalog mapping sound effect IDs and background music tracks (`bgm_title`, `bgm_game`, `bgm_done`, `bgm_timeout`) to game events.
+
