@@ -8,24 +8,35 @@ timestamp: 2026-06-29T12:30:00Z
 ---
 
 # Implementation
-The `gameMenu` is a modal interface triggered during gameplay (via the Start button). It overlays the current game state and provides options for session management.
 
-## Menu Mechanics
-- **State Preservation**: Before displaying the menu, the current PPU screen content is read into `GAME_MENU_BUF`. This allows the menu to "hide" the game world and restore it perfectly when the menu is closed.
-- **Visuals**:
-    - Renders a custom table (`gameMenuTable`) and applies attributes via `gameMenuAttrTable`.
-    - Displays the current level's pass-code using `showPassCode`.
-- **Navigation**: Standard D-pad movement between 3 primary options.
+The `gameMenu` module (`gamemenu.asm`) manages the in-game pause overlay triggered by pressing `Start` during puzzle gameplay.
 
-## Menu Options
-1. **Resume**: Closes the menu and returns the player to the `gameLoopInit` state.
-2. **Restart**: Closes the menu and triggers `restartLevel` to reset the current puzzle.
-3. **Exit**: Calls `exitGame`, which fades the screen out and returns the user to the main menu.
+---
 
-## Flow Logic
-- **Entry**: `gameMenu` $\rightarrow$ Capture Screen $\rightarrow$ Render UI $\rightarrow$ Loop.
-- **Exit**: `gameMenuDone` $\rightarrow$ Restore Screen from `GAME_MENU_BUF` $\rightarrow$ Branch to Resume/Restart/Exit.
+## 140-Byte VRAM Snapshot & Restoration Algorithm
 
-# Citations
+To render a clean modal popup window over the active puzzle grid without corrupting tile graphics or requiring a full screen redraw:
+
+1. **Snapshot on Pause (`gameMenuSave`)**:
+   - Reads 140 bytes directly from PPU VRAM starting at Nametable address `$2169` (7 rows $\times$ 20 columns overlay window).
+   - Backups these 140 bytes into RAM buffer `GAME_MENU_BUF` (located at RAM address `$0400`).
+2. **Modal Overlay Render**:
+   - Overwrites VRAM `$2169` with the pause menu box graphics (`gameMenuTable`) and level passcode string (`showPassCode`).
+3. **Restoration on Resume (`gameMenuRestore`)**:
+   - Reads 140 bytes back from `GAME_MENU_BUF` ($0400) and writes them back into VRAM `$2169`.
+   - Restores exact pre-pause game board visuals instantly without loading or recalculating tile layout.
+
+---
+
+## Dynamic Attribute Table Highlighting
+
+The pause selection cursor highlights options by dynamically altering PPU Attribute Table bytes:
+- Targets PPU Attribute addresses `$23DA` and `$23E2`.
+- Toggles attribute palette bits between standard background palette and bright menu highlight palette.
+
+---
+
+## Citations
 [1] [Source Code: gamemenu.asm](../../sources/Source/gamemenu.asm)
 [2] [Source Code: game.asm](../../sources/Source/game.asm)
+

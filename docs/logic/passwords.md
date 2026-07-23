@@ -8,37 +8,51 @@ timestamp: 2026-07-03T11:30:00Z
 ---
 
 # Implementation
-# [Password System](passwords.md)
 
-Lan Master features a password system that allows players to bypass early levels and jump directly to a specific level in the 50-level sequence.
+*Lan Master* features a 4-digit passcode system allowing players to resume gameplay from any of the 50 stages.
 
-## User Interface
+---
 
-The password entry is a sub-state of the Main Menu.
-- **Input**: The user navigates a 4-digit number using the D-pad.
-- **Cursor**: A visual cursor (`MENU_CODECUR`) identifies which digit is currently being edited.
-- **Entry**: The entered digits are stored in the `GAME_CODE` buffer (4 bytes).
+## User Interface & State Buffer
 
-## Verification Logic
+- **Input Buffer**: Stored in Zero Page RAM at `GAME_CODE` (4 bytes, `GAME_CODE+0` through `GAME_CODE+3`).
+- **Cursor State**: `MENU_CODECUR` tracks active digit selection (0–3).
+- **Navigation**: D-Pad Left/Right selects digit position; D-Pad Up/Down increments/decrements digit values (0–9).
 
-Verification occurs when the user confirms their entry (`mainMenuCodeSelect`). The game compares the entered 4-digit code against a table of 16-bit words stored in the `passwords` table.
+---
 
-### The Nibble-Based Comparison
+## Verification Logic (`mainMenuCodeSelect`)
 
-The `passwords` table stores each password as a 16-bit word. Each digit of the password is represented by a 4-bit nibble.
+When confirmed, `mainMenuCodeSelect` scans the 49-entry 16-bit BCD password table (`passwords` in `mainmenu.asm`):
 
-1. **Data Extraction**: The routine iterates through the `passwords` table. For each entry, it extracts four nibbles using bit-shifting (`ror a` 4 times) and masking (`and #15`).
-2. **Matching**:
-   - The entered `GAME_CODE` buffer is compared against these extracted nibbles.
-   - A match is confirmed if all four nibbles match the extracted values of a password entry in the table.
-3. **Level Unlocking**: If a match is found at index `x`, the game sets the current level to `(x / 2) + 1`.
+### 16-Bit Packed BCD Nibble Encoding
 
-## Special Modes
+Each 16-bit word entry in `passwords` encodes a 4-digit BCD code in little-endian format:
 
-### SFX Test Mode
-The password system includes a hidden diagnostic mode. If a specific code is entered (e.g., a code starting with 6 or 8), the game enters `mainMenuSfxTest`.
-- **Function**: This mode allows the user to trigger and test various sound effects from the `sfx.asm` library by entering specific numerical sequences.
+$$\text{16-Bit Word} = (\text{Digit}_0 \ll 12) \,\,|\,\, (\text{Digit}_1 \ll 8) \,\,|\,\, (\text{Digit}_2 \ll 4) \,\,|\,\, \text{Digit}_3$$
 
-# Citations
+- **High Byte**: High nibble = `Digit 0`, Low nibble = `Digit 1`.
+- **Low Byte**: High nibble = `Digit 2`, Low nibble = `Digit 3`.
+
+### Level Index Resolution
+
+If a match occurs at table offset $i$ (where $0 \le i \le 48$), the target stage level is assigned as:
+
+$$\text{Target Stage Level} = i + 2 \quad (\text{Levels 2 to 50})$$
+
+Level 1 requires no password and starts by default from "New Game".
+
+---
+
+## Hidden Diagnostic SFX Test Mode
+
+Entering passcode `68xx` (Digit 0 = 6, Digit 1 = 8) bypasses stage selection and triggers `mainMenuSfxTest`.
+- The remaining two digits (`xx`) specify the sound effect ID ($00$–$11$).
+- See [Hidden Main Menu Diagnostics & Secret Passcodes](cheats_diagnostics.md) for full details.
+
+---
+
+## Citations
 [1] [Source Code: mainmenu.asm](../../sources/Source/mainmenu.asm)
-[2] [Source Code: game.asm](../../sources/Source/game.asm)
+[2] [Diagnostics Spec: cheats_diagnostics.md](cheats_diagnostics.md)
+

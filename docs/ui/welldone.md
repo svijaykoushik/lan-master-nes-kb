@@ -8,23 +8,43 @@ timestamp: 2026-06-29T12:40:00Z
 ---
 
 # Implementation
-The `wellDone` module handles the end-game sequence when the player completes all 50 levels. It is characterized by high-effort visual effects and a dedicated NMI handler.
 
-## [Rendering](../system/rendering.md) Pipeline
-1. **Static Background**: Loads the `wellDoneTable` (via RLE) into the nametables.
-2. **Text Animation**: 
-   - Uses `wellDoneText` as a source.
-   - Implements a gradual "typing" effect where characters appear one by one.
-   - Includes a "fade" effect for the text using the `wellDoneFade` table and `wellDoneTextColor` routine.
-3. **Dynamic Background**: The `nmiDone` handler implements a unique background animation by shifting the PPU scroll and changing the palette/attribute of columns based on `wellDoneBG` data.
+The `wellDone` screen (`welldone.asm`) executes after the player completes all 50 game levels. It employs advanced NES hardware raster techniques, dual-nametable horizontal scrolling, and a typewriter text animation.
 
-## Execution Flow
-- **Initialization**: Sets up the background, starts the `BGM_DONE` music, and switches the NMI handler to `nmiDone`.
-- **NMI Loop (`nmiDone`)**:
-    - **Text Display**: Manages the timing and printing of the completion text.
-    - **Column Animation**: Calculates screen-splitting and color shifts to create a shimmering background effect.
-    - **PPU Sync**: Uses `bit PPU_STATUS` to synchronize visual changes with the screen's vertical blank and sprite-0 hit.
+---
 
-# Citations
+## Mid-Frame Raster Split via Hardware Sprite 0 Hit
+
+To keep the top header ("WELL DONE!") stationary while the bottom background credits scroll horizontally, `nmiDone` implements a hardware **Sprite 0 Hit** raster split:
+
+1. **Sprite 0 Placement**: Sprite 0 is placed at Y-coordinate 63 (`Y=$3F`) with opaque pixel overlap against a background tile.
+2. **VBlank Wait**: During `nmiDone`, execution waits for `PPU_STATUS` bit 6 (Sprite 0 Hit) to be set.
+3. **Cycle Delay Loop**: Runs a 50-cycle delay loop (`ldx #50`, `dex`, `bne`).
+4. **Mid-Frame Scroll Register Update**: Writes to `PPU_SCROLL` (`$2005`) mid-frame to set the horizontal scroll offset (`GAME_BG_OFF`) for the lower section of the screen without affecting the top header.
+
+---
+
+## Dual-Nametable Horizontal Scrolling Engine
+
+The scrolling background credits utilize both NES PPU nametables (`$2000` and `$2400`):
+- `GAME_BG_OFF`: Tracks horizontal sub-pixel/pixel scroll offset (0–255).
+- `GAME_BG_PAGE`: Toggles base nametable selection (`$2000` vs `$2400`) when `GAME_BG_OFF` wraps around 256.
+
+---
+
+## Typewriter Control Codes (`wellDoneText`)
+
+The typewriter engine parses script string streams in `wellDoneText` containing embedded control codes:
+
+| Control Code | Hex Value | Behavior |
+| :--- | :--- | :--- |
+| `LINE_PAUSE` | `$FE` | Pauses typing for a line delay duration before advancing to the next row. |
+| `MSG_PAUSE`  | `$FF` | Pauses typing for a long message delay before starting a new paragraph. |
+| `MSG_END`    | `$00` | Loop terminator; resets typewriter script offset to `$0000` for infinite replay. |
+
+---
+
+## Citations
 [1] [Source Code: welldone.asm](../../sources/Source/welldone.asm)
 [2] [Source Code: game.asm](../../sources/Source/game.asm)
+

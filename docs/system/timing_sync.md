@@ -8,46 +8,55 @@ timestamp: 2026-07-03T11:00:00Z
 ---
 
 # Implementation
-# [Timing & Synchronization](timing_sync.md)
 
-Lan Master relies on strict synchronization with the NES hardware to ensure smooth rendering and consistent game speed. This is achieved through a set of "wait" routines that synchronize execution with the Non-Maskable Interrupt (NMI).
+*Lan Master* uses strict NMI timing synchronization to ensure consistent framerates across both NTSC (60Hz) and PAL (50Hz) NES consoles.
 
-## VBlank Synchronization (`waitVBlank`)
+---
 
-The `waitVBlank` routine is the simplest form of synchronization. It polls the `PPU_STATUS` register until the VBlank flag (bit 7) is set.
+## Blargg's Cycle-Timing NTSC/PAL Detection (`detectNTSC`)
 
-- **Mechanism**:
-    - Reads `PPU_STATUS`.
-    - Checks the high bit (`bit PPU_STATUS`).
-    - Loops until the bit is clear (indicating the start of VBlank).
+During boot initialization, `game.asm` executes `detectNTSC` (a cycle-timing detection algorithm originally authored by Blargg):
 
-## NMI Synchronization (`waitNMI`)
+```assembly
+detectNTSC:
+    jsr waitVBlank       ; Wait for VBlank start
+    ldx #52              ; Outer delay loop (52 iterations)
+.l1:
+    ldy #24              ; Inner delay loop (24 iterations)
+.l2:
+    dey
+    bne .l2
+    dex
+    bne .l1
+    bit PPU_STATUS       ; Read bit 7 ($2002)
+    bpl .isPal           ; If VBlank flag is cleared -> PAL system
+    lda #1               ; NTSC detected
+    sta GAME_NTSC
+    rts
+.isPal:
+    lda #0               ; PAL detected
+    sta GAME_NTSC
+    rts
+```
 
-Because the game uses a dynamic NMI handler to drive the game loop, `waitNMI` is used to ensure the code waits for the next NMI trigger.
+### Technical Explanation
+- **NTSC VBlank**: Lasts ~2,273 CPU cycles (20 scanlines).
+- **PAL VBlank**: Lasts ~7,500 CPU cycles (70 scanlines).
+- After waiting ~2,500 cycles via nested loops, reading `PPU_STATUS` bit 7 determines if VBlank is still active (PAL) or has already ended (NTSC).
 
-- **Mechanism**:
-    - Captures the current value of `FRAME_CNT`.
-    - Loops until `FRAME_CNT` changes.
-    - Since `FRAME_CNT` is incremented at the start of every NMI handler, this effectively blocks execution until the next frame begins.
+---
 
-## Framerate Control (`waitNMI50`)
+## 50Hz Frame Normalization (`ntscIsSkip` / `waitNMI50`)
 
-`waitNMI50` is a higher-level synchronization routine used to slow down animations (e.g., during level transitions or "Splay" effects) to approximately 50% of the normal speed or a specific interval.
+Because NTSC runs at 60Hz and PAL runs at 50Hz, uncompensated games run 20% faster on NTSC.
 
-- **Mechanism**:
-    - It calls `waitNMI`.
-    - It then calls `ntscIsSkip` to determine if a frame should be skipped based on the console's region (NTSC vs PAL).
-    - If the frame is not skipped, it performs a `FamiToneUpdate` to keep the audio engine synchronized while the game logic is paused.
+To normalize gameplay timing:
+- In NTSC mode, `ntscIsSkip` tracks frames using `FRAME_CNT2`.
+- Drops 1 out of every 6 frames (`FRAME_CNT2 == 5`), synchronizing game logic to 50Hz updates while maintaining 60Hz audio updates via `FamiToneUpdate`.
 
-## Region Detection & Frame Skipping (`ntscIsSkip`)
+---
 
-To maintain a consistent game speed across different NES regions (NTSC vs PAL), the game implements a frame-skipping mechanism.
-
-- **Mechanism**:
-    - Checks the `GAME_NTSC` flag.
-    - If the game is in NTSC mode, it increments `FRAME_CNT2`.
-    - When `FRAME_CNT2` reaches 5, it resets and returns `C=1` (Skip).
-    - This effectively skips every 6th frame in NTSC mode to match the timing of PAL hardware or a specific target speed.
-
-# Citations
+## Citations
 [1] [Source Code: game.asm](../../sources/Source/game.asm)
+[2] [Dynamic Vectoring Spec: nmi_vectoring.md](nmi_vectoring.md)
+

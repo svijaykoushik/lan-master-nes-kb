@@ -7,49 +7,52 @@ tags: [assets, graphics, ppu, mapping]
 timestamp: 2026-07-03T10:30:00Z
 ---
 
-# [Pattern Mapping](pattern_mapping.md) Overview
+# Pattern Mapping Overview
 
-Lan Master uses a layer of indirection between the logical map (`GAME_MAP`) and the physical PPU character patterns stored in `patterns.chr`. This is managed via the `tilesTable` in `game.asm`.
+*Lan Master* uses indirect indexing via `tilesTable` in `game.asm` to map logical game tiles (`GAME_MAP`) to physical NES PPU character patterns in `patterns.chr`.
 
-## The Mapping Logic
+---
 
-The game employs "double-height" tiles. Each logical tile in the game world corresponds to a 16x8 pixel area, which requires two 8x8 PPU character tiles for the top half and two for the bottom half.
+## Technical Mapping Architecture
 
-### Translation Process
-When the `updateTile` routine is called:
-1. **Logical ID**: The value from `GAME_MAP` (the logical tile ID) is retrieved.
-2. **Table Offset**: The ID is multiplied by 4 (via two `asl` instructions) to find the offset into the `tilesTable`.
-3. **PPU Indices**: Four bytes are read from the `tilesTable` to determine the physical pattern indices in `patterns.chr`:
-   - **Byte 0**: Top-left character index.
-   - **Byte 1**: Top-right character index.
-   - **Byte 2**: Bottom-left character index.
-   - **Byte 3**: Bottom-right character index.
+Each logical tile in the $12 \times 12$ grid is a $16 \times 16$ pixel square comprising a $2 \times 2$ matrix of four $8 \times 8$ PPU CHR pattern tiles:
 
-## Logical to Physical Map
+```text
++-------------------+--------------------+
+|  Top-Left (B0)    |   Top-Right (B1)   |
+|  (8x8 CHR Tile)   |   (8x8 CHR Tile)   |
++-------------------+--------------------+
+|  Bottom-Left (B2) |   Bottom-Right (B3)|
+|  (8x8 CHR Tile)   |   (8x8 CHR Tile)   |
++-------------------+--------------------+
+```
 
-Based on the `tilesTable` definitions in `game.asm`, the following mapping is established:
+### Translation Routine (`updateTile`)
+1. Multiplies logical Tile ID by 4 (`asl a`, `asl a`) to index into `tilesTable`.
+2. Reads 4 CHR tile byte indices: `Byte 0` (Top-Left), `Byte 1` (Top-Right), `Byte 2` (Bottom-Left), `Byte 3` (Bottom-Right).
+3. Writes these 4 CHR pattern bytes into PPU VRAM across two horizontal scanlines.
 
-| Logical ID | Description | Top Indices | Bottom Indices | PPU Pattern (Hex) |
+---
+
+## Complete Logical to Physical Tile Map
+
+| Logical ID | Description | Terminal State | Top CHR Indices | Bottom CHR Indices |
 | :--- | :--- | :--- | :--- | :--- |
-| 0 | Empty | `$8d, $8e` | `$a1, $a2` | `8D 8E A1 A2` |
-| 1 | Horizontal Wire | `$8f, $90` | `$a3, $a4` | `8F 90 A3 A4` |
-| 2 | Vertical Wire | `$91, $92` | `$a5, $a6` | `91 92 A5 A6` |
-| 3 | Crossed Separate | `$93, $94` | `$a7, $a8` | `93 94 A7 A8` |
-| 4 | Crossed Connection | `$95, $96` | `$a9, $aa` | `95 96 A9 AA` |
-| 5 | Left-Down | `$97, $98` | `$a9, $a6` | `97 98 A9 A6` |
-| 6 | Left-Up | `$99, $9a` | `$ab, $a2` | `99 9A AB A2` |
-| 7 | Right-Up | `$9b, $96` | `$ac, $a4` | `9B 96 AC A4` |
-| 8 | Right-Down | `$9c, $90` | `$a5, $aa` | `9C 90 A5 AA` |
-| 15 | Terminal Right (Off) | `$b3, $b5` | `$c5, $c6` | `B3 B5 C5 C6` |
-| 16 | Terminal Down (Off) | `$b3, $b5` | `$c7, $c8` | `B3 B5 C7 C8` |
-| 17 | Terminal Left (Off) | `$b6, $b5` | `$c9, $ca` | `B6 B5 C9 CA` |
-| 18 | Terminal Up (Off) | `$b7, $b8` | `$c5, $ca` | `B7 B8 C5 CA` |
-| 19 | Terminal Right (On) | `$b9, $ba` | `$c5, $c6` | `B9 BA C5 C6` |
-| 20 | Terminal Down (On) | `$b9, $bb` | `$c7, $c8` | `B9 BB C7 C8` |
-| 21 | Terminal Left (On) | `$bc, $bb` | `$c9, $ca` | `BC BB C9 CA` |
-| 22 | Terminal Up (On) | `$bd, $be` | `$c5, $ca` | `BD BE C5 CA` |
+| `0` | Empty Space | N/A | `$8d, $8e` | `$a1, $a2` |
+| `1` | Horizontal Wire | N/A | `$8f, $90` | `$a3, $a4` |
+| `2` | Vertical Wire | N/A | `$91, $92` | `$a5, $a6` |
+| `3` | Crossed Separate | N/A | `$93, $94` | `$a7, $a8` |
+| `4` | Crossed Connection | N/A | `$95, $96` | `$a9, $aa` |
+| `5` | Left-Down Wire | N/A | `$97, $98` | `$a9, $a6` |
+| `6` | Left-Up Wire | N/A | `$99, $9a` | `$ab, $a2` |
+| `7` | Right-Up Wire | N/A | `$9b, $96` | `$ac, $a4` |
+| `8` | Right-Down Wire | N/A | `$9c, $90` | `$a5, $aa` |
+| `15–18` | Terminal R / D / L / U | **Offline** | `$b3–$b8` | `$c5–$ca` |
+| `19–22` | Terminal R / D / L / U | **Connecting** | `$b9–$be` | `$c5–$ca` |
+| `23–26` | Terminal R / D / L / U | **Online (Glowing)**| `$d1–$d8` | `$e1–$e8` |
 
-*Note: IDs 9-14 follow a similar pattern for expanded wiring variants.*
+---
 
-# Citations
+## Citations
 [1] [Source Code: game.asm](../../sources/Source/game.asm)
+

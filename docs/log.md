@@ -3,9 +3,10 @@
 This log is auto-generated from concept frontmatter timestamps.
 
 ## 2026-07-24
-* **Files Updated**: [docs/index.md](index.md), [docs/assets/index.md](assets/index.md), [docs/audio/index.md](audio/index.md), [docs/logic/index.md](logic/index.md), [docs/system/index.md](system/index.md), [docs/ui/index.md](ui/index.md), [docs/project_map.md](project_map.md), [docs/audio/famitone.md](audio/famitone.md)
-* **Concepts Modified**: GitHub Pages Compatibility, Project & Subsystem Overviews, Knowledge Base Navigation
-* **Summary of Changes**: Added comprehensive "What it is" overview descriptions to all knowledge base index files (`index.md` at root and in all subfolders). Converted folder links (`folder/`) to explicit Markdown files (`folder/index.md`). Converted root-absolute links (`/path`) to valid relative links (`path/to/doc.md`) to support GitHub Pages subpath hosting. Fixed malformed multi-target source citations in `project_map.md`.
+* **New Concepts Created**: [docs/system/nmi_vectoring.md](system/nmi_vectoring.md), [docs/logic/network_degradation.md](logic/network_degradation.md), [docs/system/level_editor_architecture.md](system/level_editor_architecture.md), [docs/audio/sfx_priority.md](audio/sfx_priority.md), [docs/logic/cheats_diagnostics.md](logic/cheats_diagnostics.md)
+* **Concepts Enriched**: [docs/logic/levels.md](logic/levels.md), [docs/logic/tracemap.md](logic/tracemap.md), [docs/logic/passwords.md](logic/passwords.md), [docs/assets/pattern_mapping.md](assets/pattern_mapping.md), [docs/system/controller.md](system/controller.md), [docs/system/timing_sync.md](system/timing_sync.md), [docs/ui/welldone.md](ui/welldone.md), [docs/ui/gamemenu.md](ui/gamemenu.md), [docs/assets/rle.md](assets/rle.md)
+* **Summary of Changes**: Created 5 new OKF concept documents covering dynamic NMI vectoring, random network degradation mechanics, 3-bit level packing & C++ editor architecture, dual-channel SFX priority, and secret diagnostic passcodes (`68xx`). Enriched 9 existing concept documents with hardware DPCM DMA filtering, Blargg NTSC cycle timing loops, Sprite 0 Hit scanline raster splits, 140-byte VRAM snapshot buffering, 16x16 tile grid sizes, and 3rd terminal states. Updated all subsystem index files and project map.
+
 
 ## 2026-07-03
 * **Update**: Processed Reference - [Audio Catalog](audio/audio_catalog.md)
